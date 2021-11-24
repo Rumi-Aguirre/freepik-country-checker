@@ -2,6 +2,7 @@
 
 namespace FreePik\Infrastructure\Exceptions;
 
+use FreePik\Domain\Exceptions\ValidationErrorException;
 use FreePik\Infrastructure\Logger\LoggerFactory;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -24,14 +25,11 @@ class ErrorHandler
 
     public function __invoke(ServerRequestInterface $request, Throwable $exception, bool $displayErrorDetails, bool $logErrors, bool $logErrorDetails) : ResponseInterface
     {
-        $responseData = [
-            'message' => $exception->getMessage(),
-            'code' => $exception->getCode()
-        ];
-        
-        if($displayErrorDetails) {
-            $responseData['trace'] = $exception->getTrace();
+        if($logErrors) {
+            $this->logError($exception, $logErrorDetails);
         }
+        
+        $responseData = $this->getResponseData($exception, $displayErrorDetails);
 
         $response = $this->responseFactory->createResponse();
         $response->getBody()->write(json_encode($responseData));
@@ -41,14 +39,34 @@ class ErrorHandler
             $httpCode = $exception->getCode();
         }
 
-        if($logErrors) {
-            $logLine = $exception->getMessage() . '|Code:' . $exception->getCode();
-            if($logErrorDetails) {
-                $logLine .= '|Trace:' . $exception->getTraceAsString();
-            } 
-            $this->logger->error($logLine);
-        }
-
         return $response->withStatus($httpCode);
     }
+
+    private function getResponseData(Throwable $exception, bool $displayErrorDetails)
+    {
+        $responseData = [
+            'message' => $exception->getMessage(),
+            'code' => $exception->getCode()
+        ];
+        
+        if($displayErrorDetails) {
+            $responseData['trace'] = $exception->getTrace();
+        }
+
+        if($exception instanceof ValidationErrorException) {
+            $responseData['validation'] = $exception->getValidationErrors();
+        }
+
+        return $responseData;
+    }
+
+    private function logError(Throwable $exception, bool $logErrorDetails)
+    {
+        $logLine = $exception->getMessage() . '|Code:' . $exception->getCode();
+        if($logErrorDetails) {
+            $logLine .= '|Trace:' . $exception->getTraceAsString();
+        } 
+        $this->logger->error($logLine);
+    }
+
 }

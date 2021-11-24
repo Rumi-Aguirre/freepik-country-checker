@@ -4,6 +4,7 @@ namespace FreePik\Infrastructure\Ui\Http\Handlers;
 
 use FreePik\Application\Commands\CountryCheckCommand;
 use FreePik\Application\Commands\CountryCheckDto;
+use FreePik\Infrastructure\Ui\Http\Validators\CountryCheckHandlerValidator;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -20,6 +21,9 @@ class CountryCheckHandler
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         $params = $request->getQueryParams();
+
+        CountryCheckHandlerValidator::validate($params);
+
         $countryCheckDto = new CountryCheckDto($params['country-code']);
         $result = $this->countryCheckCommand->handle($countryCheckDto);
 

@@ -4,7 +4,7 @@ return [
     'root' => dirname(__DIR__),
 
     'error' => [
-        'display_error_details' => true,
+        'display_error_details' => false,
         'log_errors' => true,
         'log_error_details' => true
     ],
