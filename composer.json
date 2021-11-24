@@ -1,0 +1,13 @@
+{
+    "require": {
+        "slim/slim": "4.*",
+        "slim/psr7": "^1.4",
+        "php-di/slim-bridge": "3.*",
+        "league/json-guard": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+          "FreePik\\": "src/"
+        }
+      }
+}
