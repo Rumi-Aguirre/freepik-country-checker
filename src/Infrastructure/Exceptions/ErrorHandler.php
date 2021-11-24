@@ -24,14 +24,31 @@ class ErrorHandler
 
     public function __invoke(ServerRequestInterface $request, Throwable $exception, bool $displayErrorDetails, bool $logErrors, bool $logErrorDetails) : ResponseInterface
     {
-        $response = $this->responseFactory->createResponse();
-        $response->getBody()->write(json_encode([
+        $responseData = [
             'message' => $exception->getMessage(),
             'code' => $exception->getCode()
-        ]));
-
-        $this->logger->error($exception->getMessage() . '|Code:' . $exception->getCode());
+        ];
         
-        return $response->withStatus(500);
+        if($displayErrorDetails) {
+            $responseData['trace'] = $exception->getTrace();
+        }
+
+        $response = $this->responseFactory->createResponse();
+        $response->getBody()->write(json_encode($responseData));
+
+        $httpCode = 500;
+        if($exception->getCode() >= 100 && $exception->getCode() < 600) {
+            $httpCode = $exception->getCode();
+        }
+
+        if($logErrors) {
+            $logLine = $exception->getMessage() . '|Code:' . $exception->getCode();
+            if($logErrorDetails) {
+                $logLine .= '|Trace:' . $exception->getTraceAsString();
+            } 
+            $this->logger->error($logLine);
+        }
+
+        return $response->withStatus($httpCode);
     }
 }

@@ -2,7 +2,8 @@
 
 namespace FreePik\Infrastructure\CountryApi;
 
-use Exception;
+use FreePik\Domain\Exceptions\RapidApiCountryApiCallException;
+use FreePik\Domain\Exceptions\RapidApiCoutryApiResponseValidationException;
 use FreePik\Domain\Model\Country;
 use League\JsonGuard\Validator;
 
@@ -33,7 +34,7 @@ class RapidApiCountryApi implements ICountryApi {
         curl_close($curl);
 
         if ($err) {
-            throw new Exception('Error on RapidApiCountryApi call: ' . $err);
+            throw new RapidApiCountryApiCallException($err);
         }
 
         $data = json_decode($response);
@@ -41,7 +42,7 @@ class RapidApiCountryApi implements ICountryApi {
         $validator = new Validator($data, $schema);
 
         if($validator->fails()) {
-            throw new Exception('Error on rapidAPICountry validation');
+            throw new RapidApiCoutryApiResponseValidationException();
         }
 
         return new Country($response['alpha3Code'], $response['region'], $response['population']);
