@@ -1,10 +1,10 @@
 {
     "name": "Norway",
     "capital": "Oslo",
-    "relevance": "0",
+    "relevance": "1.5",
     "region": "Europe",
     "subregion": "North Europe",
-    "population": 5379000000,
+    "population": 5077798,
     "alpha2Code": "NO",
     "alpha3Code": "NOR"
 }

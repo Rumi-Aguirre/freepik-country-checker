@@ -1,0 +1,12 @@
+{
+    "name": "Russia",
+    "capital": "Moscow",
+    "relevance": "2.5",
+    "region": "Europe",
+    "subregion": "Eastern Europe",
+    "population": 143500000,
+    "demonym": "Russian",
+    "area": 17098242,
+    "alpha2Code": "RU",
+    "alpha3Code": "RUS"
+}

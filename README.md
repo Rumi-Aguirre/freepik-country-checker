@@ -1,4 +1,21 @@
 # Freepik - Country Checker API
+## Previous considerations
+At the development moment the API required for receive country data returns a 403 forbidden.
+I made a local implementation with some static responses, the following country codes are available:
+
+- aut (Austria)
+- chn (China)
+- cod (Democratic Republic of the Congo)
+- col (Colombia)
+- dza (Algeria)
+- est (Estonia)
+- nor (Norway)
+- rus (Russia)
+- sjm (Svalbard and Jan Mayen)
+- ita (Italy)
+
+Another thing that I noticed it's the fact that in the PDF says that the Population Rule when the region is Asia the population should be over 80.000.00 but I think that maybe one zero is missing. Anyway I followed the PDF instruction
+
 ## Setup
 1. Clone repository
 ```
