@@ -29,6 +29,6 @@ class CountryCheckHandler
 
         $response->getBody()->write(json_encode($result));
 
-        return $response;
+        return $response->withHeader('Content-type', 'application/json');
     }
 }

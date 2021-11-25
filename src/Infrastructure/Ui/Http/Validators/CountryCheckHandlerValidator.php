@@ -6,19 +6,20 @@ use Cake\Validation\Validator;
 use Exception;
 use FreePik\Domain\Exceptions\ValidationErrorException;
 
-class CountryCheckHandlerValidator {
+class CountryCheckHandlerValidator
+{
 
     public static function validate(array $data)
     {
         $validator = new Validator();
-        $validator->requirePresence('country-code');
+        $validator->requirePresence('country-code')
+            ->notEmptyString('country-code');
 
         $errors = $validator->validate($data);
-        if($errors) {
+        if ($errors) {
             throw new ValidationErrorException($errors);
         }
 
         return true;
     }
-
 }

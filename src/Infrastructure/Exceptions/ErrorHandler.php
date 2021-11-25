@@ -39,7 +39,7 @@ class ErrorHandler
             $httpCode = $exception->getCode();
         }
 
-        return $response->withStatus($httpCode);
+        return $response->withStatus($httpCode)->withHeader('Content-type', 'application/json');
     }
 
     private function getResponseData(Throwable $exception, bool $displayErrorDetails)
