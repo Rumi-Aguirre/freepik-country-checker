@@ -18,6 +18,22 @@ class CountryCheckHandler
         $this->countryCheckCommand = $countryCheckCommand;
     }
 
+    /**
+     * @OA\Get(
+     *     tags={"Country"},
+     *     path="/country-check",
+     *     operationId="countryCheckCommand",
+     *     @OA\Parameter(name="country-code",
+        *     in="query",
+        *     required=true,
+        *     @OA\Schema(type="string")
+        *   ),
+     *     @OA\Response(
+     *      response="200",
+     *      description="Return a summary of country criterias"
+     *     )
+     * )
+     */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         $params = $request->getQueryParams();

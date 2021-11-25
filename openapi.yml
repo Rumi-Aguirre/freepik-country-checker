@@ -1,0 +1,23 @@
+openapi: 3.0.0
+info:
+  title: 'FreePik - Rumi Aguirre - Country Check'
+  version: '0.1'
+servers:
+  -
+    url: 'http://localhost'
+paths:
+  /country-check:
+    get:
+      tags:
+        - Country
+      operationId: countryCheckCommand
+      parameters:
+        -
+          name: country-code
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Return a summary of country criterias'
