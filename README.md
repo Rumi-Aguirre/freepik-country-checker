@@ -10,6 +10,11 @@ git clone https://github.com/Rumi-Aguirre/freepik-country-checker.git
 docker-compose up -d
 ```
 
+3. Run tests:
+```
+docker-compose exec php-fpm /var/www/freepik/vendor/bin/phpunit /var/www/freepik/tests --configuration /var/www/freepik/phpunit.xml --do-not-cache-result --colors=always
+```
+
 ## Validation
 The application uses `cakephp/validation` for input validation.
 

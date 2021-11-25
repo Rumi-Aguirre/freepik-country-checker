@@ -12,7 +12,7 @@ return [
     'logging' => [
         'name' => 'app',
         'path' => __DIR__ . '/../logs',
-        'filename' => 'app.log',
+        'filename' => 'freepik.log',
         'level' => \Monolog\Logger::DEBUG,
         'file_permission' => 0775,
     ]
