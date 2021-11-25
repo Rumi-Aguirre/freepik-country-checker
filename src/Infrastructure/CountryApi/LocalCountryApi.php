@@ -2,7 +2,6 @@
 
 namespace FreePik\Infrastructure\CountryApi;
 
-use Exception;
 use FreePik\Domain\Exceptions\CountryNotFoundException;
 use FreePik\Domain\Model\Country;
 

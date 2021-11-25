@@ -4,7 +4,6 @@ use Slim\Factory\AppFactory;
 use DI\ContainerBuilder;
 use FreePik\Infrastructure\CountryApi\ICountryApi;
 use FreePik\Infrastructure\CountryApi\LocalCountryApi;
-use FreePik\Infrastructure\CountryApi\RapidApiCountryApi;
 use FreePik\Infrastructure\Exceptions\ErrorHandler;
 use FreePik\Infrastructure\Logger\LoggerFactory;
 use Psr\Container\ContainerInterface;
@@ -16,7 +15,6 @@ $settings = require(__DIR__ . '/../config/settings.php');
 $containerBuilder = new ContainerBuilder();
 $containerBuilder->addDefinitions([
     ICountryApi::class => function (ContainerInterface $container) {
-        // return new RapidApiCountryApi(); # RapidApi seems to be broken at development time so I use a local implementation of CountryApi instead
         return new LocalCountryApi();
     },
 
@@ -29,7 +27,7 @@ AppFactory::setContainer($containerBuilder->build());
 $app = AppFactory::create();
 
 $loggerFactory = $app->getContainer()->get(LoggerFactory::class);
-$logger = $loggerFactory->addFileHandler('error.log')->createLogger();
+$logger = $loggerFactory->addConsoleHandler()->createLogger();
 
 $errorMiddleware = $app->addErrorMiddleware(
     $settings['error']['display_error_details'],
@@ -37,8 +35,14 @@ $errorMiddleware = $app->addErrorMiddleware(
     $settings['error']['log_error_details'],
     $logger
 );
+
 $errorMiddleware->setDefaultErrorHandler(ErrorHandler::class);
 
 (require __DIR__ . '/../config/routes.php')($app);
 
-$app->run();
+function getApplication()
+{
+    global $app;
+    
+    return $app;
+}

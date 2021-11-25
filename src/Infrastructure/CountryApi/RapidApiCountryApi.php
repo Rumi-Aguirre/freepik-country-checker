@@ -7,14 +7,30 @@ use FreePik\Domain\Exceptions\RapidApiCoutryApiResponseValidationException;
 use FreePik\Domain\Model\Country;
 use League\JsonGuard\Validator;
 
-class RapidApiCountryApi implements ICountryApi {
+class RapidApiCountryApi implements ICountryApi
+{
 
-    public function getByCode(string $code) : Country
+    public function getByCode(string $code): Country
+    {
+        $response = $this->makeRequest($code);
+
+        $data = json_decode($response);
+        $schema = json_decode('{ "type": "object", "properties": { "alpha3Code": { "type": "string"}, "region": { "type": "string"}, "population": { "type": "integer"}} }');
+        $validator = new Validator($data, $schema);
+
+        if ($validator->fails()) {
+            throw new RapidApiCoutryApiResponseValidationException();
+        }
+
+        return new Country($data->alpha3Code, $data->region, $data->population);
+    }
+
+    protected function makeRequest($code)
     {
         $curl = curl_init();
 
         curl_setopt_array($curl, [
-            CURLOPT_URL => "https://restcountries-v1.p.rapidapi.com/region/africa",
+            CURLOPT_URL => "https://restcountries-v1.p.rapidapi.com/alpha/?codes=$code",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_ENCODING => "",
@@ -37,16 +53,6 @@ class RapidApiCountryApi implements ICountryApi {
             throw new RapidApiCountryApiCallException($err);
         }
 
-        $data = json_decode($response);
-        $schema = json_decode('{"type": "object", "properties": { "alpha3Code": { "type": "string"}, "region": { "type": "string"}, "population": { "type": "integer"}}}');
-        $validator = new Validator($data, $schema);
-
-        if($validator->fails()) {
-            throw new RapidApiCoutryApiResponseValidationException();
-        }
-
-        return new Country($response['alpha3Code'], $response['region'], $response['population']);
-
+        return $response;
     }
-
 }
