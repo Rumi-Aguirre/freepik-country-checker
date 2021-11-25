@@ -22,13 +22,13 @@ class CountryEvaluatorTest extends MockeryTestCase
     private function setResources()
     {
         $this->countryEvaluator = new CountryEvaluator();
-        $this->argCountry = Mockery::mock(Country::class, function($mock) {
+        $this->argCountry = Mockery::mock(Country::class, function ($mock) {
             $mock->shouldReceive('getCode')->andReturn('ARG');
             $mock->shouldReceive('getRegion')->andReturn('South America');
             $mock->shouldReceive('getPopulation')->andReturn(60000000);
         });
 
-        $this->norCountry = Mockery::mock(Country::class, function($mock) {
+        $this->norCountry = Mockery::mock(Country::class, function ($mock) {
             $mock->shouldReceive('getCode')->andReturn('NOR');
             $mock->shouldReceive('getRegion')->andReturn('Europe');
             $mock->shouldReceive('getPopulation')->andReturn(100);

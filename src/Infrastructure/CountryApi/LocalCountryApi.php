@@ -5,13 +5,14 @@ namespace FreePik\Infrastructure\CountryApi;
 use FreePik\Domain\Exceptions\CountryNotFoundException;
 use FreePik\Domain\Model\Country;
 
-class LocalCountryApi implements ICountryApi {
+class LocalCountryApi implements ICountryApi
+{
 
-    public function getByCode(string $code) : Country
+    public function getByCode(string $code): Country
     {
         $filename = __DIR__ . '/LocalCountryApiResponses/' . strtolower($code) . '.json';
 
-        if(file_exists($filename) === false) {
+        if (file_exists($filename) === false) {
             throw new CountryNotFoundException($code);
         }
 
@@ -19,5 +20,4 @@ class LocalCountryApi implements ICountryApi {
 
         return new Country($response->alpha2Code, $response->region, $response->population);
     }
-
 }

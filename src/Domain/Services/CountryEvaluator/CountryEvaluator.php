@@ -4,7 +4,8 @@ namespace FreePik\Domain\Services\CountryEvaluator;
 
 use FreePik\Domain\Model\Country;
 
-class CountryEvaluator {
+class CountryEvaluator
+{
 
     private CountryEvaluatorRuleProvider $ruleProvider;
 
@@ -13,13 +14,13 @@ class CountryEvaluator {
         $this->ruleProvider = new CountryEvaluatorRuleProvider();
     }
 
-    public function perfomEvaluation(Country $countryToCheck, Country $countryToCompareWith) 
+    public function perfomEvaluation(Country $countryToCheck, Country $countryToCompareWith)
     {
         $enabledRules = $this->ruleProvider->getEnabledRules();
 
         $criteria = [];
         $result = true;
-        foreach($enabledRules as $ruleName =>  $rule) {
+        foreach ($enabledRules as $ruleName =>  $rule) {
             $criteria[$ruleName] = $rule['handler']::check($countryToCheck, $countryToCompareWith);
             $result = $result && $criteria[$ruleName];
         }
@@ -29,5 +30,4 @@ class CountryEvaluator {
             'criteria' => $criteria,
         ];
     }
-
 }

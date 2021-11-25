@@ -43,6 +43,6 @@ $errorMiddleware->setDefaultErrorHandler(ErrorHandler::class);
 function getApplication()
 {
     global $app;
-    
+
     return $app;
 }

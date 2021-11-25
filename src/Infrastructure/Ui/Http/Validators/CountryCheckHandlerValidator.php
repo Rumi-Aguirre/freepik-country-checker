@@ -3,7 +3,6 @@
 namespace FreePik\Infrastructure\Ui\Http\Validators;
 
 use Cake\Validation\Validator;
-use Exception;
 use FreePik\Domain\Exceptions\ValidationErrorException;
 
 class CountryCheckHandlerValidator

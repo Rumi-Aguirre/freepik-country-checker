@@ -17,7 +17,7 @@ class RapidApiCountryApiTest extends MockeryTestCase
         Mockery::close();
     }
 
-    
+
     public function testSuccessGetCountry()
     {
         $rapidCountryApi = Mockery::mock(RapidApiCountryApi::class)->makePartial();
@@ -42,7 +42,7 @@ class RapidApiCountryApiTest extends MockeryTestCase
 
         $this->assertInstanceOf(Country::class, $country);
     }
-    
+
 
     public function testThrowRapidApiCountryApiCallException()
     {

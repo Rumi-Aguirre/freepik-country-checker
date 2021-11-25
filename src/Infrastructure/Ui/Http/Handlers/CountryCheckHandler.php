@@ -24,10 +24,10 @@ class CountryCheckHandler
      *     path="/country-check",
      *     operationId="countryCheckCommand",
      *     @OA\Parameter(name="country-code",
-        *     in="query",
-        *     required=true,
-        *     @OA\Schema(type="string")
-        *   ),
+     *     in="query",
+     *     required=true,
+     *     @OA\Schema(type="string")
+     *   ),
      *     @OA\Response(
      *      response="200",
      *      description="Return a summary of country criterias"

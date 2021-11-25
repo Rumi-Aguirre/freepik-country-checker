@@ -23,19 +23,19 @@ class ErrorHandler
         $this->logger = $loggerFactory->addFileHandler('freepik.log')->createLogger();
     }
 
-    public function __invoke(ServerRequestInterface $request, Throwable $exception, bool $displayErrorDetails, bool $logErrors, bool $logErrorDetails) : ResponseInterface
+    public function __invoke(ServerRequestInterface $request, Throwable $exception, bool $displayErrorDetails, bool $logErrors, bool $logErrorDetails): ResponseInterface
     {
-        if($logErrors) {
+        if ($logErrors) {
             $this->logError($exception, $logErrorDetails);
         }
-        
+
         $responseData = $this->getResponseData($exception, $displayErrorDetails);
 
         $response = $this->responseFactory->createResponse();
         $response->getBody()->write(json_encode($responseData));
 
         $httpCode = 500;
-        if($exception->getCode() >= 100 && $exception->getCode() < 600) {
+        if ($exception->getCode() >= 100 && $exception->getCode() < 600) {
             $httpCode = $exception->getCode();
         }
 
@@ -48,12 +48,12 @@ class ErrorHandler
             'message' => $exception->getMessage(),
             'code' => $exception->getCode()
         ];
-        
-        if($displayErrorDetails) {
+
+        if ($displayErrorDetails) {
             $responseData['trace'] = $exception->getTrace();
         }
 
-        if($exception instanceof ValidationErrorException) {
+        if ($exception instanceof ValidationErrorException) {
             $responseData['validation'] = $exception->getValidationErrors();
         }
 
@@ -63,10 +63,9 @@ class ErrorHandler
     private function logError(Throwable $exception, bool $logErrorDetails)
     {
         $logLine = $exception->getMessage() . '|Code:' . $exception->getCode();
-        if($logErrorDetails) {
+        if ($logErrorDetails) {
             $logLine .= '|Trace:' . $exception->getTraceAsString();
-        } 
+        }
         $this->logger->error($logLine);
     }
-
 }

@@ -4,7 +4,8 @@ namespace FreePik\Domain\Exceptions;
 
 use Exception;
 
-class ValidationErrorException extends Exception {
+class ValidationErrorException extends Exception
+{
 
     private $validationErrors;
 
@@ -18,5 +19,4 @@ class ValidationErrorException extends Exception {
     {
         return $this->validationErrors;
     }
-
 }

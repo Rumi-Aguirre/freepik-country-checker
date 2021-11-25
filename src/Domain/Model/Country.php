@@ -2,7 +2,8 @@
 
 namespace FreePik\Domain\Model;
 
-class Country {
+class Country
+{
 
     private string $code;
 
@@ -17,12 +18,12 @@ class Country {
         $this->population = $population;
     }
 
-    public function getCode() 
+    public function getCode()
     {
         return $this->code;
     }
 
-    public function getRegion() 
+    public function getRegion()
     {
         return $this->region;
     }
@@ -31,5 +32,4 @@ class Country {
     {
         return $this->population;
     }
-
 }

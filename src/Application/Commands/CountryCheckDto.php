@@ -2,7 +2,7 @@
 
 namespace FreePik\Application\Commands;
 
-class CountryCheckDto 
+class CountryCheckDto
 {
 
     private string $countryCode;
@@ -12,9 +12,8 @@ class CountryCheckDto
         $this->countryCode = $countryCode;
     }
 
-    public function getCountryCode() : string
+    public function getCountryCode(): string
     {
         return $this->countryCode;
     }
-
 }
