@@ -32,7 +32,7 @@ export UID && docker-compose up -d
 docker-compose exec php-fpm /var/www/freepik/vendor/bin/phpunit /var/www/freepik/tests --configuration /var/www/freepik/phpunit.xml --do-not-cache-result --colors=always
 ```
 
-4. Check that app is runing on `http://localhost:8080`
+4. Check that app is runing on `http://localhost:8080` (should retrun an 404 since there is not implemented an index)
 
 ## Validation
 The application uses `cakephp/validation` for input validation.
