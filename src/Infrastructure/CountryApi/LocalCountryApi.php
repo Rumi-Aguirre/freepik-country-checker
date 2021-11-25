@@ -9,7 +9,7 @@ class LocalCountryApi implements ICountryApi {
 
     public function getByCode(string $code) : Country
     {
-        $filename = __DIR__ . '/LocalCountryApiResponses/' . $code . '.json';
+        $filename = __DIR__ . '/LocalCountryApiResponses/' . strtolower($code) . '.json';
 
         if(file_exists($filename) === false) {
             throw new CountryNotFoundException($code);

@@ -23,7 +23,7 @@ class RapidApiCountryApiTest extends MockeryTestCase
         $rapidCountryApi = Mockery::mock(RapidApiCountryApi::class)->makePartial();
         $rapidCountryApi->shouldAllowMockingProtectedMethods()->shouldReceive('makeRequest')
             ->andReturn(
-                '{
+                '[{
                     "name": "Colombia",
                     "capital": "Bogotá",
                     "relevance": "0",
@@ -35,7 +35,7 @@ class RapidApiCountryApiTest extends MockeryTestCase
                     "gini": 55.9,
                     "alpha2Code": "CO",
                     "alpha3Code": "COL"
-                }'
+                }]'
             );
 
         $country = $rapidCountryApi->getByCode('col');

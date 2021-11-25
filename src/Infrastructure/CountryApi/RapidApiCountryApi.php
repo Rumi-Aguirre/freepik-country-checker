@@ -15,14 +15,26 @@ class RapidApiCountryApi implements ICountryApi
         $response = $this->makeRequest($code);
 
         $data = json_decode($response);
-        $schema = json_decode('{ "type": "object", "properties": { "alpha3Code": { "type": "string"}, "region": { "type": "string"}, "population": { "type": "integer"}} }');
+        $schema = json_decode('{
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "type": "object",      
+                "properties": {
+                      "alpha3Code": { "type": "string"}, 
+                     "region": { "type": "string"}, 
+                     "population": { "type": "integer"} 
+                },
+                "required": ["alpha3Code", "region", "population"]
+            }
+        }');
         $validator = new Validator($data, $schema);
 
         if ($validator->fails()) {
             throw new RapidApiCoutryApiResponseValidationException();
         }
 
-        return new Country($data->alpha3Code, $data->region, $data->population);
+        return new Country($data[0]->alpha3Code, $data[0]->region, $data[0]->population);
     }
 
     protected function makeRequest($code)
