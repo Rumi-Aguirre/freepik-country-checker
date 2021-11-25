@@ -27,3 +27,14 @@ This project comes with an implementation of OpenApi bassed on annotations. To r
 ```
 
 The output file is compatible with any OpenApi parser. For example https://editor.swagger.io/
+
+## Next steps
+There is a lot of improvements that can be made but I consider that are out of the prupose of this technical test. Probably my next steps would be (at no specific order):
+
+- Add environment variables for data like API Key
+- Add CORS protection
+- Add prometheus metrics
+- Add test to infrastructure pieces like logger
+- Add a cache layer to avoid getting the same countries from Api many times
+- Add a changelog to track the changes following Semantic Versioning
+- Etc. 
