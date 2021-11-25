@@ -23,7 +23,7 @@ The application uses `cakephp/validation` for input validation.
 ## OpenApi
 This project comes with an implementation of OpenApi bassed on annotations. To regenerate the openapi.yaml run the following command:
 ```
-composer openapi
+./vendor/bin/openapi --output openapi.yml src
 ```
 
 The output file is compatible with any OpenApi parser. For example https://editor.swagger.io/
