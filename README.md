@@ -24,7 +24,7 @@ git clone https://github.com/Rumi-Aguirre/freepik-country-checker.git
 
 2. Start application with `docker-compose`:
 ```
-export UID && docker-compose up -d
+export UID && docker-compose up
 ```
 
 3. Run tests:
